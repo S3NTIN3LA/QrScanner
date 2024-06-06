@@ -15,7 +15,7 @@ class _QrCodeContatoState extends State<QrCodeContato> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MinhasCores.background,
+      backgroundColor: MinhasCores.primaria,
       appBar: AppBar(
         title: const Text('Contato'),
       ),
@@ -32,13 +32,13 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                     SizedBox(
                       width: 185,
                       child: TextField(
-                        cursorColor: MinhasCores.bottomBar,
+                        cursorColor: MinhasCores.secundaria,
                         decoration: InputDecoration(
                           hintText: 'Nome',
                           hintStyle: TextStyle(fontWeight: FontWeight.normal),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: MinhasCores.bottomBar, width: 3),
+                                color: MinhasCores.secundaria, width: 3),
                           ),
                         ),
                       ),
@@ -49,13 +49,13 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                     SizedBox(
                       width: 185,
                       child: TextField(
-                        cursorColor: MinhasCores.bottomBar,
+                        cursorColor: MinhasCores.secundaria,
                         decoration: InputDecoration(
                           hintText: 'Sobrenome',
                           hintStyle: TextStyle(fontWeight: FontWeight.normal),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: MinhasCores.bottomBar, width: 3),
+                                color: MinhasCores.secundaria, width: 3),
                           ),
                         ),
                       ),
@@ -66,13 +66,13 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                   height: 20,
                 ),
                 const TextField(
-                  cursorColor: MinhasCores.bottomBar,
+                  cursorColor: MinhasCores.secundaria,
                   decoration: InputDecoration(
                     hintText: 'Telefone',
                     hintStyle: TextStyle(fontWeight: FontWeight.normal),
                     focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: MinhasCores.bottomBar, width: 3),
+                          BorderSide(color: MinhasCores.secundaria, width: 3),
                     ),
                   ),
                 ),
@@ -80,13 +80,13 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                   height: 20,
                 ),
                 const TextField(
-                  cursorColor: MinhasCores.bottomBar,
+                  cursorColor: MinhasCores.secundaria,
                   decoration: InputDecoration(
                     hintText: 'E-mail',
                     hintStyle: TextStyle(fontWeight: FontWeight.normal),
                     focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: MinhasCores.bottomBar, width: 3),
+                          BorderSide(color: MinhasCores.secundaria, width: 3),
                     ),
                   ),
                 ),

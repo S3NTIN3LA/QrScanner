@@ -6,5 +6,5 @@ class Botoes {
       elevation: 5,
       fixedSize: const Size(double.infinity, 50),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: MinhasCores.bottomBar);
+      backgroundColor: MinhasCores.secundaria);
 }

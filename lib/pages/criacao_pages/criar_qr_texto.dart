@@ -15,7 +15,7 @@ class _QrCodeTextoState extends State<QrCodeTexto> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MinhasCores.background,
+      backgroundColor: MinhasCores.primaria,
       appBar: AppBar(
         title: const Text('Texto'),
       ),
@@ -28,13 +28,13 @@ class _QrCodeTextoState extends State<QrCodeTexto> {
             child: Column(
               children: [
                 const TextField(
-                  cursorColor: MinhasCores.bottomBar,
+                  cursorColor: MinhasCores.secundaria,
                   decoration: InputDecoration(
                     hintText: 'Coloque o texto desejado aqui',
                     hintStyle: TextStyle(fontWeight: FontWeight.normal),
                     focusedBorder: UnderlineInputBorder(
                       borderSide:
-                          BorderSide(color: MinhasCores.bottomBar, width: 3),
+                          BorderSide(color: MinhasCores.secundaria, width: 3),
                     ),
                   ),
                 ),

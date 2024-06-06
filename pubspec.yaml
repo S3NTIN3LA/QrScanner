@@ -1,5 +1,5 @@
 name: leitor_qrcode
-description: "A new Flutter project."
+description: "App para escanear Qr Codes."
 
 publish_to: 'none' 
 
@@ -18,10 +18,10 @@ dependencies:
   
   cupertino_icons: ^1.0.6
   vibration: ^1.9.0
-  camera_camera: ^3.0.0
   image_picker: ^1.1.1
   flutter_barcode_scanner: ^2.0.0
   flutter_native_splash: ^2.4.0
+  provider: ^6.1.2
 
 flutter_native_splash:
   color: '#EEEEEE'

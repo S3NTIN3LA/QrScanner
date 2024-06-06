@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:leitor_qrcode/fun%C3%A7%C3%B5es/mudar_tema.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_contato.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_site.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_texto.dart';
 import 'package:leitor_qrcode/styles/buttons.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/text.dart';
+import 'package:leitor_qrcode/styles/themes.dart';
+import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 
 class Criar extends StatefulWidget {
@@ -17,14 +20,25 @@ class Criar extends StatefulWidget {
 class _CriarState extends State<Criar> {
   @override
   Widget build(BuildContext context) {
+    final temaProvider = Provider.of<TemaProvider>(context);
     return Scaffold(
-      backgroundColor: MinhasCores.background,
+      backgroundColor: temaProvider.temaAtual.brightness == Brightness.light
+          ? MinhasCores.primaria
+          : temaEscuro.scaffoldBackgroundColor,
       appBar: AppBar(
-        leading: const Icon(
+        backgroundColor: temaProvider.temaAtual.brightness == Brightness.light
+            ? temaClaro.appBarTheme.backgroundColor
+            : temaEscuro.appBarTheme.backgroundColor,
+        leading: Icon(
           Icons.add_box_outlined,
-          color: MinhasCores.bottomBar,
+          color: temaProvider.temaAtual.brightness == Brightness.light
+              ? MinhasCores.secundaria
+              : Colors.teal[300],
         ),
-        title: const Text('Criar'),
+        title: Text('Criar',
+            style: temaProvider.temaAtual.brightness == Brightness.light
+                ? temaClaro.textTheme.titleSmall
+                : temaEscuro.textTheme.titleSmall),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
