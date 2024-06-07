@@ -90,7 +90,10 @@ class _ConfiguracoesState extends State<Configuracoes> {
                       ? temaClaro.textTheme.titleSmall
                       : temaEscuro.textTheme.titleSmall),
               trailing: Switch(
-                activeColor: MinhasCores.secundaria,
+                activeColor:
+                    temaProvider.temaAtual.brightness == Brightness.light
+                        ? MinhasCores.secundaria
+                        : Colors.teal[300],
                 inactiveTrackColor: MinhasCores.primaria,
                 value: abrirLinks,
                 onChanged: (value) {
@@ -111,7 +114,10 @@ class _ConfiguracoesState extends State<Configuracoes> {
                       ? temaClaro.textTheme.titleSmall
                       : temaEscuro.textTheme.titleSmall),
               trailing: Switch(
-                activeColor: MinhasCores.secundaria,
+                activeColor:
+                    temaProvider.temaAtual.brightness == Brightness.light
+                        ? MinhasCores.secundaria
+                        : Colors.teal[300],
                 inactiveTrackColor: MinhasCores.primaria,
                 value: vibrar,
                 onChanged: (value) {

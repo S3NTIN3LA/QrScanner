@@ -35,15 +35,15 @@ final ThemeData temaEscuro = ThemeData(
   ),
   iconTheme: const IconThemeData(color: MinhasCores.primaria),
   useMaterial3: true,
-  appBarTheme: const AppBarTheme(backgroundColor: Colors.black38),
-  scaffoldBackgroundColor: Colors.black87,
+  appBarTheme: const AppBarTheme(backgroundColor: MinhasCores.terciaria),
+  scaffoldBackgroundColor: MinhasCores.terciaria,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.teal,
     ),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: Colors.black87,
+    backgroundColor: MinhasCores.terciaria,
     selectedItemColor: Colors.teal[300],
   ),
 );

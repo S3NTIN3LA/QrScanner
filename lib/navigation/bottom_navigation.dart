@@ -4,7 +4,6 @@ import 'package:leitor_qrcode/pages/configuracao.dart';
 import 'package:leitor_qrcode/pages/criar.dart';
 import 'package:leitor_qrcode/pages/historico.dart';
 import 'package:leitor_qrcode/pages/leitor.dart';
-import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/themes.dart';
 import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';

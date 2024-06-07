@@ -45,7 +45,9 @@ class _CriarState extends State<Criar> {
         child: Column(
           children: [
             ElevatedButton(
-              style: Botoes.botaoMenus,
+              style: temaProvider.temaAtual.brightness == Brightness.light
+                  ? Botoes.botaoMenusLight
+                  : Botoes.botaoMenusDark,
               child: Row(
                 children: [
                   const Icon(
@@ -74,7 +76,9 @@ class _CriarState extends State<Criar> {
               height: 10,
             ),
             ElevatedButton(
-              style: Botoes.botaoMenus,
+              style: temaProvider.temaAtual.brightness == Brightness.light
+                  ? Botoes.botaoMenusLight
+                  : Botoes.botaoMenusDark,
               child: Row(
                 children: [
                   const Icon(
@@ -103,7 +107,9 @@ class _CriarState extends State<Criar> {
               height: 10,
             ),
             ElevatedButton(
-              style: Botoes.botaoMenus,
+              style: temaProvider.temaAtual.brightness == Brightness.light
+                  ? Botoes.botaoMenusLight
+                  : Botoes.botaoMenusDark,
               child: Row(
                 children: [
                   const Icon(
@@ -127,7 +133,9 @@ class _CriarState extends State<Criar> {
               height: 10,
             ),
             ElevatedButton(
-              style: Botoes.botaoMenus,
+              style: temaProvider.temaAtual.brightness == Brightness.light
+                  ? Botoes.botaoMenusLight
+                  : Botoes.botaoMenusDark,
               child: Row(
                 children: [
                   const Icon(
@@ -151,7 +159,9 @@ class _CriarState extends State<Criar> {
               height: 10,
             ),
             ElevatedButton(
-              style: Botoes.botaoMenus,
+              style: temaProvider.temaAtual.brightness == Brightness.light
+                  ? Botoes.botaoMenusLight
+                  : Botoes.botaoMenusDark,
               child: Row(
                 children: [
                   const Icon(
@@ -180,7 +190,9 @@ class _CriarState extends State<Criar> {
               height: 10,
             ),
             ElevatedButton(
-              style: Botoes.botaoMenus,
+              style: temaProvider.temaAtual.brightness == Brightness.light
+                  ? Botoes.botaoMenusLight
+                  : Botoes.botaoMenusDark,
               child: Row(
                 children: [
                   const Icon(

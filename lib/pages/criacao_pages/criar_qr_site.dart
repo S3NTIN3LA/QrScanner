@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:leitor_qrcode/fun%C3%A7%C3%B5es/mudar_tema.dart';
 import 'package:leitor_qrcode/styles/buttons.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/text.dart';
+import 'package:leitor_qrcode/styles/themes.dart';
+import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 
 class QrCodeSite extends StatefulWidget {
@@ -14,10 +17,26 @@ class QrCodeSite extends StatefulWidget {
 class _QrCodeSiteState extends State<QrCodeSite> {
   @override
   Widget build(BuildContext context) {
+    final temaProvider = Provider.of<TemaProvider>(context);
     return Scaffold(
-      backgroundColor: MinhasCores.primaria,
+      backgroundColor: temaProvider.temaAtual.brightness == Brightness.light
+          ? temaClaro.scaffoldBackgroundColor
+          : temaEscuro.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('Site'),
+        iconTheme: IconThemeData(
+          color: temaProvider.temaAtual.brightness == Brightness.light
+              ? MinhasCores.secundaria
+              : Colors.teal[300],
+        ),
+        backgroundColor: temaProvider.temaAtual.brightness == Brightness.light
+            ? temaClaro.appBarTheme.backgroundColor
+            : temaEscuro.appBarTheme.backgroundColor,
+        title: Text(
+          'Site',
+          style: temaProvider.temaAtual.brightness == Brightness.light
+              ? temaClaro.textTheme.titleSmall
+              : temaEscuro.textTheme.titleSmall,
+        ),
       ),
       body: Center(
         child: Padding(
@@ -27,14 +46,22 @@ class _QrCodeSiteState extends State<QrCodeSite> {
             height: 200,
             child: Column(
               children: [
-                const TextField(
-                  cursorColor: MinhasCores.secundaria,
+                TextField(
+                  cursorColor:
+                      temaProvider.temaAtual.brightness == Brightness.light
+                          ? MinhasCores.secundaria
+                          : Colors.teal.shade300,
                   decoration: InputDecoration(
                     hintText: 'Coloque o endereço do site aqui',
-                    hintStyle: TextStyle(fontWeight: FontWeight.normal),
+                    hintStyle: const TextStyle(
+                        fontWeight: FontWeight.normal, color: Colors.grey),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: MinhasCores.secundaria, width: 3),
+                      borderSide: BorderSide(
+                          color: temaProvider.temaAtual.brightness ==
+                                  Brightness.light
+                              ? MinhasCores.secundaria
+                              : Colors.teal.shade300,
+                          width: 3),
                     ),
                   ),
                 ),
@@ -42,7 +69,9 @@ class _QrCodeSiteState extends State<QrCodeSite> {
                   height: 15,
                 ),
                 ElevatedButton(
-                  style: Botoes.botaoMenus,
+                  style: temaProvider.temaAtual.brightness == Brightness.light
+                      ? Botoes.botaoMenusLight
+                      : Botoes.botaoMenusDark,
                   onPressed: () {
                     Vibration.vibrate(duration: 50);
                   },
