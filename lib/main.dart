@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:leitor_qrcode/fun%C3%A7%C3%B5es/mudar_tema.dart';
+import 'package:leitor_qrcode/funcoes/mudar_tema.dart';
 import 'package:leitor_qrcode/navigation/bottom_navigation.dart';
+import 'package:leitor_qrcode/styles/themes.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final temaProvider = ThemeProvider(temaClaro);
+  await temaProvider.carregarTema();
   runApp(
     ChangeNotifierProvider(
-      create: (context) => TemaProvider(),
+      create: (_) => temaProvider,
       child: const MyApp(),
     ),
   );
@@ -18,10 +22,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final temaProvider = Provider.of<ThemeProvider>(context);
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    return const MaterialApp(
+    return MaterialApp(
+      theme: temaProvider.themeData,
       debugShowCheckedModeBanner: false,
-      home: BottomBar(),
+      home: const BottomBar(),
     );
   }
 }

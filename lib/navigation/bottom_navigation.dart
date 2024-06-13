@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:leitor_qrcode/fun%C3%A7%C3%B5es/mudar_tema.dart';
 import 'package:leitor_qrcode/pages/configuracao.dart';
 import 'package:leitor_qrcode/pages/criar.dart';
 import 'package:leitor_qrcode/pages/historico.dart';
 import 'package:leitor_qrcode/pages/leitor.dart';
-import 'package:leitor_qrcode/styles/themes.dart';
-import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 
 class BottomBar extends StatefulWidget {
@@ -19,7 +16,6 @@ class _BottomBarState extends State<BottomBar> {
   int _pageSelected = 0;
   @override
   Widget build(BuildContext context) {
-    final temaProvider = Provider.of<TemaProvider>(context);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pageSelected,
@@ -53,13 +49,7 @@ class _BottomBarState extends State<BottomBar> {
               label: 'Configurações'),
         ],
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: temaProvider.temaAtual.brightness == Brightness.light
-            ? temaClaro.bottomNavigationBarTheme.selectedItemColor
-            : temaEscuro.bottomNavigationBarTheme.selectedItemColor,
         unselectedItemColor: const Color(0xffB0A695),
-        backgroundColor: temaProvider.temaAtual.brightness == Brightness.light
-            ? temaClaro.bottomNavigationBarTheme.backgroundColor
-            : temaEscuro.bottomNavigationBarTheme.backgroundColor,
       ),
       body: IndexedStack(
         index: _pageSelected,

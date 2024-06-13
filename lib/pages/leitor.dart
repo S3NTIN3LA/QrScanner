@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:leitor_qrcode/fun%C3%A7%C3%B5es/mudar_tema.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/text.dart';
-import 'package:leitor_qrcode/styles/themes.dart';
-import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
@@ -17,6 +14,7 @@ class LeitorPage extends StatefulWidget {
 
 class _LeitorPageState extends State<LeitorPage> {
   String conteudoQr = '';
+
   readQrCode() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
       "#186F65",
@@ -31,25 +29,14 @@ class _LeitorPageState extends State<LeitorPage> {
 
   @override
   Widget build(BuildContext context) {
-    final temaProvider = Provider.of<TemaProvider>(context);
     return Scaffold(
-        backgroundColor: temaProvider.temaAtual.brightness == Brightness.light
-            ? temaClaro.scaffoldBackgroundColor
-            : temaEscuro.scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: temaProvider.temaAtual.brightness == Brightness.light
-              ? temaClaro.appBarTheme.backgroundColor
-              : temaEscuro.appBarTheme.backgroundColor,
           leading: Icon(
             Icons.qr_code_scanner,
-            color: temaProvider.temaAtual.brightness == Brightness.light
-                ? MinhasCores.secundaria
-                : Colors.teal[300],
           ),
-          title: Text('Leitor',
-              style: temaProvider.temaAtual.brightness == Brightness.light
-                  ? temaClaro.textTheme.titleSmall
-                  : temaEscuro.textTheme.titleSmall),
+          title: Text(
+            'Leitor',
+          ),
         ),
         body: Center(
           child: SizedBox(
@@ -62,7 +49,6 @@ class _LeitorPageState extends State<LeitorPage> {
                     width: double.infinity,
                     child: Card(
                       elevation: 5,
-                      color: MinhasCores.secundaria,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -127,19 +113,15 @@ class _LeitorPageState extends State<LeitorPage> {
                 Card(
                   elevation: 5,
                   child: TextButton(
-                    style: ButtonStyle(
-                      shape: const WidgetStatePropertyAll(
+                    style: const ButtonStyle(
+                      shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
                         ),
                       ),
-                      minimumSize: const WidgetStatePropertyAll(Size(300, 140)),
-                      backgroundColor: WidgetStatePropertyAll(
-                          temaProvider.temaAtual.brightness == Brightness.light
-                              ? MinhasCores.secundaria
-                              : Colors.teal[300]),
+                      minimumSize: WidgetStatePropertyAll(Size(300, 140)),
                     ),
                     onPressed: () {
                       Vibration.vibrate(duration: 50);
@@ -171,16 +153,10 @@ class _LeitorPageState extends State<LeitorPage> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: MinhasCores.secundaria,
                     ),
                     width: double.infinity,
                     child: IconButton(
                       style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
-                            temaProvider.temaAtual.brightness ==
-                                    Brightness.light
-                                ? MinhasCores.secundaria
-                                : Colors.teal[300]),
                         shape: WidgetStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),

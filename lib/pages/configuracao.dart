@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:leitor_qrcode/fun%C3%A7%C3%B5es/mudar_tema.dart';
+import 'package:leitor_qrcode/funcoes/mudar_tema.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/themes.dart';
-import 'package:vibration/vibration.dart';
 import 'package:provider/provider.dart';
+import 'package:vibration/vibration.dart';
 
 class Configuracoes extends StatefulWidget {
   const Configuracoes({super.key});
@@ -18,25 +18,16 @@ class _ConfiguracoesState extends State<Configuracoes> {
   bool botaoTemas = true;
   @override
   Widget build(BuildContext context) {
-    final temaProvider = Provider.of<TemaProvider>(context);
+    final temaProvider = Provider.of<ThemeProvider>(context);
+    bool temaClaroAtivado = temaProvider.themeData == temaClaro;
     return Scaffold(
-      backgroundColor: temaProvider.temaAtual.brightness == Brightness.light
-          ? MinhasCores.primaria
-          : temaEscuro.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: temaProvider.temaAtual.brightness == Brightness.light
-            ? temaClaro.appBarTheme.backgroundColor
-            : temaEscuro.appBarTheme.backgroundColor,
-        leading: Icon(
+        leading: const Icon(
           Icons.settings_applications_sharp,
-          color: temaProvider.temaAtual.brightness == Brightness.light
-              ? MinhasCores.secundaria
-              : Colors.teal[300],
         ),
-        title: Text('Configurações',
-            style: temaProvider.temaAtual.brightness == Brightness.light
-                ? temaClaro.textTheme.titleSmall
-                : temaEscuro.textTheme.titleSmall),
+        title: const Text(
+          'Configurações',
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -45,55 +36,39 @@ class _ConfiguracoesState extends State<Configuracoes> {
             ListTile(
               title: Text(
                 'Configurações do app',
-                style: temaProvider.temaAtual.brightness == Brightness.light
-                    ? temaClaro.textTheme.titleMedium
-                    : temaEscuro.textTheme.titleMedium,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: botaoTemas ? MinhasCores.secundaria : Colors.teal[300],
+                ),
               ),
             ),
             ListTile(
-              leading: Icon(
-                  temaProvider.temaAtual.brightness == Brightness.light
-                      ? Icons.light_mode_outlined
-                      : Icons.dark_mode_outlined,
-                  color: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.iconTheme.color
-                      : temaEscuro.iconTheme.color),
-              title: Text(
-                  temaProvider.temaAtual.brightness == Brightness.light
-                      ? 'Tema claro'
-                      : 'Tema escuro',
-                  style: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.textTheme.titleSmall
-                      : temaEscuro.textTheme.titleSmall),
+              leading: Icon(temaClaroAtivado
+                  ? Icons.light_mode_outlined
+                  : Icons.dark_mode_outlined),
+              title: Text(temaClaroAtivado ? 'Tema claro' : 'Tema escuro'),
               trailing: Switch(
                 activeColor: Colors.amber[300],
                 activeTrackColor: Colors.blue[200],
                 inactiveThumbColor: Colors.white,
                 inactiveTrackColor: Colors.blue[800],
-                value: botaoTemas,
+                value: temaClaroAtivado,
                 onChanged: (value) {
                   Vibration.vibrate(duration: 50);
-                  temaProvider.alterarTema();
-                  setState(() {
-                    botaoTemas = !botaoTemas;
-                  });
+                  ThemeData novoTema = value ? temaClaro : temaEscuro;
+                  temaProvider.setTheme(novoTema);
+                  temaProvider.salvarTema(value);
                 },
               ),
             ),
             ListTile(
-              leading: Icon(abrirLinks ? Icons.link : Icons.link_off,
-                  color: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.iconTheme.color
-                      : temaEscuro.iconTheme.color),
-              title: Text('Abrir links automaticamente',
-                  style: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.textTheme.titleSmall
-                      : temaEscuro.textTheme.titleSmall),
+              leading: Icon(
+                abrirLinks ? Icons.link : Icons.link_off,
+              ),
+              title: const Text(
+                'Abrir links automaticamente',
+              ),
               trailing: Switch(
-                activeColor:
-                    temaProvider.temaAtual.brightness == Brightness.light
-                        ? MinhasCores.secundaria
-                        : Colors.teal[300],
                 inactiveTrackColor: MinhasCores.primaria,
                 value: abrirLinks,
                 onChanged: (value) {
@@ -105,19 +80,13 @@ class _ConfiguracoesState extends State<Configuracoes> {
               ),
             ),
             ListTile(
-              leading: Icon(vibrar ? Icons.vibration : Icons.smartphone,
-                  color: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.iconTheme.color
-                      : temaEscuro.iconTheme.color),
-              title: Text('Vibrar',
-                  style: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.textTheme.titleSmall
-                      : temaEscuro.textTheme.titleSmall),
+              leading: Icon(
+                vibrar ? Icons.vibration : Icons.smartphone,
+              ),
+              title: const Text(
+                'Vibrar',
+              ),
               trailing: Switch(
-                activeColor:
-                    temaProvider.temaAtual.brightness == Brightness.light
-                        ? MinhasCores.secundaria
-                        : Colors.teal[300],
                 inactiveTrackColor: MinhasCores.primaria,
                 value: vibrar,
                 onChanged: (value) {
@@ -131,50 +100,44 @@ class _ConfiguracoesState extends State<Configuracoes> {
             ListTile(
               title: Text(
                 'Sobre',
-                style: temaProvider.temaAtual.brightness == Brightness.light
-                    ? temaClaro.textTheme.titleMedium
-                    : temaEscuro.textTheme.titleMedium,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: botaoTemas ? MinhasCores.secundaria : Colors.teal[300],
+                ),
               ),
             ),
             ListTile(
-              leading: Icon(Icons.info_outline,
-                  color: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.iconTheme.color
-                      : temaEscuro.iconTheme.color),
-              title: Text('Introdução',
-                  style: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.textTheme.titleSmall
-                      : temaEscuro.textTheme.titleSmall),
+              leading: const Icon(
+                Icons.info_outline,
+              ),
+              title: const Text(
+                'Introdução',
+              ),
               onTap: () {
                 Vibration.vibrate(duration: 50);
               },
             ),
             ListTile(
-              leading: Icon(Icons.star_border,
-                  color: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.iconTheme.color
-                      : temaEscuro.iconTheme.color),
-              title: Text('Avalie-nos',
-                  style: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.textTheme.titleSmall
-                      : temaEscuro.textTheme.titleSmall),
+              leading: const Icon(
+                Icons.star_border,
+              ),
+              title: const Text(
+                'Avalie-nos',
+              ),
               onTap: () {
                 Vibration.vibrate(duration: 50);
               },
             ),
-            ListTile(
-              leading: Icon(Icons.system_update,
-                  color: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.iconTheme.color
-                      : temaEscuro.iconTheme.color),
-              title: Text('Versão',
-                  style: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.textTheme.titleSmall
-                      : temaEscuro.textTheme.titleSmall),
-              subtitle: Text('1.0.0',
-                  style: temaProvider.temaAtual.brightness == Brightness.light
-                      ? temaClaro.textTheme.titleSmall
-                      : temaEscuro.textTheme.titleSmall),
+            const ListTile(
+              leading: Icon(
+                Icons.system_update,
+              ),
+              title: Text(
+                'Versão',
+              ),
+              subtitle: Text(
+                '1.0.0',
+              ),
             ),
           ],
         ),
