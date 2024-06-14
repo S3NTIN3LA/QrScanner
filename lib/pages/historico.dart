@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:leitor_qrcode/funcoes/mudar_tema.dart';
 
 class Historico extends StatefulWidget {
   const Historico({super.key});
