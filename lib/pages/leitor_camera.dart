@@ -31,18 +31,19 @@ class _LeitorPageState extends State<LeitorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: Icon(
+          leading: const Icon(
             Icons.qr_code_scanner,
           ),
-          title: Text(
+          title: const Text(
             'Leitor',
           ),
         ),
         body: Center(
           child: SizedBox(
             width: 300,
-            height: conteudoQr != '' ? 360 : 240,
+            //height: conteudoQr != '' ? 360 : 240,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (conteudoQr != '')
                   SizedBox(
@@ -148,39 +149,6 @@ class _LeitorPageState extends State<LeitorPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Card(
-                  elevation: 5,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: double.infinity,
-                    child: IconButton(
-                      style: ButtonStyle(
-                        shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        Vibration.vibrate(duration: 50);
-                      },
-                      icon: const Column(
-                        children: [
-                          Icon(
-                            Icons.photo,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            'Ler imagem',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
               ],
             ),
           ),

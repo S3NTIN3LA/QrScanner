@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leitor_qrcode/pages/configuracao.dart';
-import 'package:leitor_qrcode/pages/criar.dart';
-import 'package:leitor_qrcode/pages/historico.dart';
-import 'package:leitor_qrcode/pages/leitor.dart';
+import 'package:leitor_qrcode/pages/leitor_camera.dart';
+import 'package:leitor_qrcode/pages/leitor_imagens.dart';
 import 'package:vibration/vibration.dart';
 
 class BottomBar extends StatefulWidget {
@@ -29,9 +28,14 @@ class _BottomBarState extends State<BottomBar> {
           BottomNavigationBarItem(
             backgroundColor: null,
             icon: Icon(Icons.qr_code_scanner_sharp),
-            label: 'Leitor',
+            label: 'Câmera',
           ),
           BottomNavigationBarItem(
+            backgroundColor: null,
+            icon: Icon(Icons.image_search),
+            label: 'Ler imagem',
+          ),
+          /*BottomNavigationBarItem(
             backgroundColor: null,
             icon: Icon(Icons.history),
             label: 'Histórico',
@@ -42,7 +46,7 @@ class _BottomBarState extends State<BottomBar> {
               Icons.add_box_outlined,
             ),
             label: 'Criar',
-          ),
+          ),*/
           BottomNavigationBarItem(
               backgroundColor: null,
               icon: Icon(Icons.settings_applications_sharp),
@@ -55,8 +59,9 @@ class _BottomBarState extends State<BottomBar> {
         index: _pageSelected,
         children: const [
           LeitorPage(),
-          Historico(),
-          Criar(),
+          LeitorImagens(),
+          //Historico(),
+          //Criar(),
           Configuracoes(),
         ],
       ),

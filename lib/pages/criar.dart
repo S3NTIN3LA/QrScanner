@@ -18,10 +18,10 @@ class _CriarState extends State<Criar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
+        leading: const Icon(
           Icons.add_box_outlined,
         ),
-        title: Text(
+        title: const Text(
           'Criar',
         ),
       ),

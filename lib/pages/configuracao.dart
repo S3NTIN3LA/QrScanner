@@ -61,7 +61,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 },
               ),
             ),
-            ListTile(
+            /*ListTile(
               leading: Icon(
                 abrirLinks ? Icons.link : Icons.link_off,
               ),
@@ -78,7 +78,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
                   });
                 },
               ),
-            ),
+            ),*/
             ListTile(
               leading: Icon(
                 vibrar ? Icons.vibration : Icons.smartphone,
