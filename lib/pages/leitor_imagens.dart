@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leitor_qrcode/funcoes/leitor_imagem.dart';
+import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/text.dart';
+import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 
 class LeitorImagens extends StatefulWidget {
@@ -32,6 +34,7 @@ class _LeitorImagensState extends State<LeitorImagens> {
 
   @override
   Widget build(BuildContext context) {
+    final vibracaoOn = context.watch<VibrationProvider>().vibracaoOn;
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(Icons.photo),
@@ -64,7 +67,9 @@ class _LeitorImagensState extends State<LeitorImagens> {
                           ),
                           InkWell(
                             onTap: () {
-                              Vibration.vibrate(duration: 50);
+                              if (vibracaoOn) {
+                                Vibration.vibrate(duration: 50);
+                              }
                               final data = ClipboardData(text: _scanResult);
                               Clipboard.setData(data);
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -122,7 +127,9 @@ class _LeitorImagensState extends State<LeitorImagens> {
                       ),
                       onPressed: () {
                         _pickImage();
-                        Vibration.vibrate(duration: 50);
+                        if (vibracaoOn) {
+                          Vibration.vibrate(duration: 50);
+                        }
                       },
                       icon: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,

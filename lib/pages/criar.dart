@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_contato.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_site.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_texto.dart';
 import 'package:leitor_qrcode/styles/buttons.dart';
 import 'package:leitor_qrcode/styles/text.dart';
+import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 
 class Criar extends StatefulWidget {
@@ -16,6 +18,7 @@ class Criar extends StatefulWidget {
 class _CriarState extends State<Criar> {
   @override
   Widget build(BuildContext context) {
+    final vibracaoOn = context.watch<VibrationProvider>().vibracaoOn;
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(
@@ -47,7 +50,9 @@ class _CriarState extends State<Criar> {
                 ],
               ),
               onPressed: () {
-                Vibration.vibrate(duration: 50);
+                if (vibracaoOn) {
+                  Vibration.vibrate(duration: 50);
+                }
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const QrCodeSite(),
@@ -76,7 +81,9 @@ class _CriarState extends State<Criar> {
                 ],
               ),
               onPressed: () {
-                Vibration.vibrate(duration: 50);
+                if (vibracaoOn) {
+                  Vibration.vibrate(duration: 50);
+                }
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const QrCodeContato(),
@@ -105,7 +112,9 @@ class _CriarState extends State<Criar> {
                 ],
               ),
               onPressed: () {
-                Vibration.vibrate(duration: 50);
+                if (vibracaoOn) {
+                  Vibration.vibrate(duration: 50);
+                }
               },
             ),
             const SizedBox(
@@ -129,7 +138,9 @@ class _CriarState extends State<Criar> {
                 ],
               ),
               onPressed: () {
-                Vibration.vibrate(duration: 50);
+                if (vibracaoOn) {
+                  Vibration.vibrate(duration: 50);
+                }
               },
             ),
             const SizedBox(
@@ -153,7 +164,9 @@ class _CriarState extends State<Criar> {
                 ],
               ),
               onPressed: () {
-                Vibration.vibrate(duration: 50);
+                if (vibracaoOn) {
+                  Vibration.vibrate(duration: 50);
+                }
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const QrCodeTexto(),
@@ -182,7 +195,9 @@ class _CriarState extends State<Criar> {
                 ],
               ),
               onPressed: () {
-                Vibration.vibrate(duration: 50);
+                if (vibracaoOn) {
+                  Vibration.vibrate(duration: 50);
+                }
               },
             ),
           ],

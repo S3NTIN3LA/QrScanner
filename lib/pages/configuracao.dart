@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leitor_qrcode/funcoes/mudar_tema.dart';
+import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/themes.dart';
 import 'package:provider/provider.dart';
@@ -13,13 +14,14 @@ class Configuracoes extends StatefulWidget {
 }
 
 class _ConfiguracoesState extends State<Configuracoes> {
-  bool vibrar = true;
   bool abrirLinks = false;
   bool botaoTemas = true;
   @override
   Widget build(BuildContext context) {
     final temaProvider = Provider.of<ThemeProvider>(context);
     bool temaClaroAtivado = temaProvider.themeData == temaClaro;
+    final vibracaoProvider = context.watch<VibrationProvider>();
+    final vibrationOn = vibracaoProvider.vibracaoOn;
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(
@@ -54,7 +56,9 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 inactiveTrackColor: Colors.blue[800],
                 value: temaClaroAtivado,
                 onChanged: (value) {
-                  Vibration.vibrate(duration: 50);
+                  if (vibrationOn) {
+                    Vibration.vibrate(duration: 50);
+                  }
                   ThemeData novoTema = value ? temaClaro : temaEscuro;
                   temaProvider.setTheme(novoTema);
                   temaProvider.salvarTema(value);
@@ -81,19 +85,19 @@ class _ConfiguracoesState extends State<Configuracoes> {
             ),*/
             ListTile(
               leading: Icon(
-                vibrar ? Icons.vibration : Icons.smartphone,
+                vibrationOn ? Icons.vibration : Icons.smartphone,
               ),
               title: const Text(
                 'Vibrar',
               ),
               trailing: Switch(
                 inactiveTrackColor: MinhasCores.primaria,
-                value: vibrar,
+                value: vibrationOn,
                 onChanged: (value) {
-                  Vibration.vibrate(duration: 50);
-                  setState(() {
-                    vibrar = !vibrar;
-                  });
+                  if (vibrationOn) {
+                    Vibration.vibrate(duration: 50);
+                  }
+                  vibracaoProvider.setarPreferenciaVibracao(value);
                 },
               ),
             ),
@@ -114,7 +118,9 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 'Introdução',
               ),
               onTap: () {
-                Vibration.vibrate(duration: 50);
+                if (vibrationOn) {
+                  Vibration.vibrate(duration: 50);
+                }
               },
             ),
             ListTile(
@@ -125,7 +131,9 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 'Avalie-nos',
               ),
               onTap: () {
-                Vibration.vibrate(duration: 50);
+                if (vibrationOn) {
+                  Vibration.vibrate(duration: 50);
+                }
               },
             ),
             const ListTile(

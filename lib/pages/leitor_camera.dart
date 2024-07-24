@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/text.dart';
+import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
@@ -29,6 +31,7 @@ class _LeitorPageState extends State<LeitorPage> {
 
   @override
   Widget build(BuildContext context) {
+    final vibrationOn = context.watch<VibrationProvider>().vibracaoOn;
     return Scaffold(
         appBar: AppBar(
           leading: const Icon(
@@ -66,7 +69,9 @@ class _LeitorPageState extends State<LeitorPage> {
                             ),
                             InkWell(
                               onTap: () {
-                                Vibration.vibrate(duration: 50);
+                                if (vibrationOn) {
+                                  Vibration.vibrate(duration: 50);
+                                }
                                 final data = ClipboardData(text: conteudoQr);
                                 Clipboard.setData(data);
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -125,7 +130,9 @@ class _LeitorPageState extends State<LeitorPage> {
                       minimumSize: WidgetStatePropertyAll(Size(300, 140)),
                     ),
                     onPressed: () {
-                      Vibration.vibrate(duration: 50);
+                      if (vibrationOn) {
+                        Vibration.vibrate(duration: 50);
+                      }
                       readQrCode();
                     },
                     child: const Row(
@@ -145,9 +152,6 @@ class _LeitorPageState extends State<LeitorPage> {
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
                 ),
               ],
             ),
