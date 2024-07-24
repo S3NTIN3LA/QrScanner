@@ -54,6 +54,8 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 activeTrackColor: Colors.blue[200],
                 inactiveThumbColor: Colors.white,
                 inactiveTrackColor: Colors.blue[800],
+                trackOutlineColor: WidgetStatePropertyAll(
+                    temaClaroAtivado ? Colors.blue[200] : Colors.blue[800]),
                 value: temaClaroAtivado,
                 onChanged: (value) {
                   if (vibrationOn) {

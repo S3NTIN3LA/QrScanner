@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/pages/configuracao.dart';
 import 'package:leitor_qrcode/pages/leitor_camera.dart';
 import 'package:leitor_qrcode/pages/leitor_imagens.dart';
+import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
 
 class BottomBar extends StatefulWidget {
@@ -15,11 +17,14 @@ class _BottomBarState extends State<BottomBar> {
   int _pageSelected = 0;
   @override
   Widget build(BuildContext context) {
+    final vibracaoOn = context.watch<VibrationProvider>().vibracaoOn;
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pageSelected,
         onTap: (opcao) {
-          Vibration.vibrate(duration: 50);
+          if (vibracaoOn) {
+            Vibration.vibrate(duration: 50);
+          }
           setState(() {
             _pageSelected = opcao;
           });
