@@ -1,10 +1,10 @@
-import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 
 class QRImageScannerService {
   Future<String> scanQRFromImage(String imagePath) async {
     final inputImage = InputImage.fromFilePath(imagePath);
-    // ignore: deprecated_member_use
-    final barcodeScanner = GoogleMlKit.vision.barcodeScanner();
+
+    final BarcodeScanner barcodeScanner = BarcodeScanner();
 
     try {
       final List<Barcode> barcodes =
