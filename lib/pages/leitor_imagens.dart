@@ -117,7 +117,7 @@ class _LeitorImagensState extends State<LeitorImagens> {
                   elevation: 5,
                   child: SizedBox(
                     height: 140,
-                    child: IconButton(
+                    child: TextButton(
                       style: ButtonStyle(
                         shape: WidgetStatePropertyAll(
                           RoundedRectangleBorder(
@@ -131,7 +131,7 @@ class _LeitorImagensState extends State<LeitorImagens> {
                           Vibration.vibrate(duration: 50);
                         }
                       },
-                      icon: const Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -144,9 +144,9 @@ class _LeitorImagensState extends State<LeitorImagens> {
                           Text(
                             'Ler imagem',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
                           ),
                         ],
                       ),
