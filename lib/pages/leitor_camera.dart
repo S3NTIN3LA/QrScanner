@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
-import 'package:leitor_qrcode/styles/colors.dart';
-import 'package:leitor_qrcode/styles/text.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
@@ -29,6 +27,10 @@ class _LeitorPageState extends State<LeitorPage> {
     });
   }
 
+  void _mostrarOpcoes(BuildContext context, String url) {
+    Share.share(url);
+  }
+
   @override
   Widget build(BuildContext context) {
     final vibrationOn = context.watch<VibrationProvider>().vibracaoOn;
@@ -44,7 +46,6 @@ class _LeitorPageState extends State<LeitorPage> {
         body: Center(
           child: SizedBox(
             width: 300,
-            //height: conteudoQr != '' ? 360 : 240,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -59,7 +60,7 @@ class _LeitorPageState extends State<LeitorPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Toque para copiar:',
+                              'Toque:',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
@@ -72,29 +73,7 @@ class _LeitorPageState extends State<LeitorPage> {
                                 if (vibrationOn) {
                                   Vibration.vibrate(duration: 50);
                                 }
-                                final data = ClipboardData(text: conteudoQr);
-                                Clipboard.setData(data);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    duration: const Duration(seconds: 1),
-                                    backgroundColor: MinhasCores.secundaria,
-                                    content: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.check,
-                                          color: Colors.white,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          'Copiado!',
-                                          style: EstilosTexto.textoPaginas,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
+                                _mostrarOpcoes(context, conteudoQr);
                               },
                               child: SizedBox(
                                 height: 60,

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leitor_qrcode/funcoes/leitor_imagem.dart';
 import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
-import 'package:leitor_qrcode/styles/colors.dart';
-import 'package:leitor_qrcode/styles/text.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:vibration/vibration.dart';
 
 class LeitorImagens extends StatefulWidget {
@@ -30,6 +28,10 @@ class _LeitorImagensState extends State<LeitorImagens> {
         _scanResult = scanResult;
       });
     }
+  }
+
+  void _mostrarOpcoes(BuildContext context, String url) {
+    Share.share(url);
   }
 
   @override
@@ -57,7 +59,7 @@ class _LeitorImagensState extends State<LeitorImagens> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Toque para copiar:',
+                            'Toque:',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
@@ -70,29 +72,7 @@ class _LeitorImagensState extends State<LeitorImagens> {
                               if (vibracaoOn) {
                                 Vibration.vibrate(duration: 50);
                               }
-                              final data = ClipboardData(text: _scanResult);
-                              Clipboard.setData(data);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  duration: const Duration(seconds: 1),
-                                  backgroundColor: MinhasCores.secundaria,
-                                  content: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.check,
-                                        color: Colors.white,
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        'Copiado!',
-                                        style: EstilosTexto.textoPaginas,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
+                              _mostrarOpcoes(context, _scanResult);
                             },
                             child: SizedBox(
                               height: 60,
