@@ -28,7 +28,9 @@ class _LeitorPageState extends State<LeitorPage> {
   }
 
   void _mostrarOpcoes(BuildContext context, String url) {
-    Share.share(url);
+    if (conteudoQr != '' && conteudoQr != 'Não foi possivel escanear :(') {
+      Share.share(url);
+    }
   }
 
   @override
@@ -59,11 +61,24 @@ class _LeitorPageState extends State<LeitorPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Toque:',
-                              style: TextStyle(
+                            const Row(
+                              children: [
+                                Icon(
+                                  Icons.touch_app_outlined,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                                  size: 15,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Compartilhar',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                             const SizedBox(
                               height: 5,

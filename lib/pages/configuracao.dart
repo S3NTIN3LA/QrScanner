@@ -4,6 +4,7 @@ import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/themes.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:vibration/vibration.dart';
 
 class Configuracoes extends StatefulWidget {
@@ -13,9 +14,14 @@ class Configuracoes extends StatefulWidget {
   State<Configuracoes> createState() => _ConfiguracoesState();
 }
 
+void _compartilhar(BuildContext context, String url) {
+  Share.share(url);
+}
+
 class _ConfiguracoesState extends State<Configuracoes> {
-  bool abrirLinks = false;
-  bool botaoTemas = true;
+  //bool abrirLinks = false;
+  String linkCompartilhar =
+      'https://play.google.com/store/apps/details?id=com.qrscanner.appbr';
   @override
   Widget build(BuildContext context) {
     final temaProvider = Provider.of<ThemeProvider>(context);
@@ -40,7 +46,9 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 'Configurações do app',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: botaoTemas ? MinhasCores.secundaria : Colors.teal[300],
+                  color: temaClaroAtivado
+                      ? MinhasCores.secundaria
+                      : Colors.teal[300],
                 ),
               ),
             ),
@@ -108,7 +116,9 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 'Sobre',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: botaoTemas ? MinhasCores.secundaria : Colors.teal[300],
+                  color: temaClaroAtivado
+                      ? MinhasCores.secundaria
+                      : Colors.teal[300],
                 ),
               ),
             ),
@@ -127,15 +137,16 @@ class _ConfiguracoesState extends State<Configuracoes> {
             ),
             ListTile(
               leading: const Icon(
-                Icons.star_border,
+                Icons.share_outlined,
               ),
               title: const Text(
-                'Avalie-nos',
+                'Compartilhar app',
               ),
               onTap: () {
                 if (vibrationOn) {
                   Vibration.vibrate(duration: 50);
                 }
+                _compartilhar(context, linkCompartilhar);
               },
             ),
             const ListTile(

@@ -31,7 +31,9 @@ class _LeitorImagensState extends State<LeitorImagens> {
   }
 
   void _mostrarOpcoes(BuildContext context, String url) {
-    Share.share(url);
+    if (_scanResult != '' && _scanResult != 'QrCode não encontrado.') {
+      Share.share(url);
+    }
   }
 
   @override
@@ -58,11 +60,23 @@ class _LeitorImagensState extends State<LeitorImagens> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Toque:',
-                            style: TextStyle(
+                          const Row(
+                            children: [
+                              Icon(
+                                Icons.touch_app_outlined,
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                                size: 15,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Compartilhar',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 5,
