@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
+import 'package:provider/provider.dart';
+import 'package:vibration/vibration.dart';
 
 class Introducao extends StatelessWidget {
   const Introducao({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final vibrationOn = context.watch<VibrationProvider>().vibracaoOn;
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(Icons.info_outline),
@@ -23,6 +27,9 @@ class Introducao extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                if (vibrationOn) {
+                  Vibration.vibrate(duration: 50);
+                }
                 Navigator.of(context).pop();
               },
               child: const Text(

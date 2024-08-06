@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
+import 'package:leitor_qrcode/historico_list.dart';
 import 'package:leitor_qrcode/pages/configuracao.dart';
+import 'package:leitor_qrcode/pages/historico.dart';
 import 'package:leitor_qrcode/pages/leitor_camera.dart';
 import 'package:leitor_qrcode/pages/leitor_imagens.dart';
 import 'package:provider/provider.dart';
@@ -40,12 +42,12 @@ class _BottomBarState extends State<BottomBar> {
             icon: Icon(Icons.image_search),
             label: 'Ler imagem',
           ),
-          /*BottomNavigationBarItem(
+          BottomNavigationBarItem(
             backgroundColor: null,
             icon: Icon(Icons.history),
             label: 'Histórico',
           ),
-          BottomNavigationBarItem(
+          /*BottomNavigationBarItem(
             backgroundColor: null,
             icon: Icon(
               Icons.add_box_outlined,
@@ -62,12 +64,18 @@ class _BottomBarState extends State<BottomBar> {
       ),
       body: IndexedStack(
         index: _pageSelected,
-        children: const [
-          LeitorPage(),
-          LeitorImagens(),
-          //Historico(),
+        children: [
+          LeitorPage(
+            codigosEscaneados: codigosEscaneados,
+          ),
+          LeitorImagens(
+            codigosEscaneados: codigosEscaneados,
+          ),
+          Historico(
+            codigosEscaneados: codigosEscaneados,
+          ),
           //Criar(),
-          Configuracoes(),
+          const Configuracoes(),
         ],
       ),
     );

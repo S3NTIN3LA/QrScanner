@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leitor_qrcode/funcoes/leitor_imagem.dart';
 import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
+import 'package:leitor_qrcode/historico_list.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
 
 class LeitorImagens extends StatefulWidget {
-  const LeitorImagens({super.key});
+  final List<String> codigosEscaneados;
+  const LeitorImagens({super.key, required this.codigosEscaneados});
 
   @override
   State<LeitorImagens> createState() => _LeitorImagensState();
@@ -15,17 +18,35 @@ class LeitorImagens extends StatefulWidget {
 
 class _LeitorImagensState extends State<LeitorImagens> {
   String _scanResult = '';
+
+  void quandoForEscaneado(String codigoEscaneado) async {
+    setState(() {
+      widget.codigosEscaneados.add(codigoEscaneado);
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('codigosEscaneados', widget.codigosEscaneados);
+  }
+
+  Future<void> carregarHistorico() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      codigosEscaneados = prefs.getStringList('codigosEscaneados') ?? [];
+    });
+  }
+
   final QRImageScannerService _qrImageScannerService = QRImageScannerService();
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
     if (image != null) {
       String scanResult =
           await _qrImageScannerService.scanQRFromImage(image.path);
       setState(() {
         _scanResult = scanResult;
+        if (scanResult != 'QrCode não encontrado.') {
+          quandoForEscaneado(_scanResult);
+        }
       });
     }
   }
@@ -34,6 +55,12 @@ class _LeitorImagensState extends State<LeitorImagens> {
     if (_scanResult != '' && _scanResult != 'QrCode não encontrado.') {
       Share.share(url);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    carregarHistorico();
   }
 
   @override

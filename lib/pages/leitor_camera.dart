@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
+import 'package:leitor_qrcode/historico_list.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class LeitorPage extends StatefulWidget {
-  const LeitorPage({super.key});
+  final List<String> codigosEscaneados;
+  const LeitorPage({super.key, required this.codigosEscaneados});
 
   @override
   State<LeitorPage> createState() => _LeitorPageState();
@@ -14,6 +17,21 @@ class LeitorPage extends StatefulWidget {
 
 class _LeitorPageState extends State<LeitorPage> {
   String conteudoQr = '';
+
+  void quandoForEscaneado(String codigoEscaneado) async {
+    setState(() {
+      widget.codigosEscaneados.add(codigoEscaneado);
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('codigosEscaneados', widget.codigosEscaneados);
+  }
+
+  Future<void> carregarHistorico() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      codigosEscaneados = prefs.getStringList('codigosEscaneados') ?? [];
+    });
+  }
 
   readQrCode() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
@@ -24,6 +42,9 @@ class _LeitorPageState extends State<LeitorPage> {
     );
     setState(() {
       conteudoQr = code != '-1' ? code : 'Não foi possivel escanear :(';
+      if (code != '-1') {
+        quandoForEscaneado(conteudoQr);
+      }
     });
   }
 
