@@ -20,10 +20,13 @@ class Introducao extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Image.asset('assets/image_introduction.png'),
+            Image.asset(
+              'assets/image_introduction.png',
+              width: 200,
+            ),
             const Text(
-              'QrScanner é um app que visa agilizar e facilitar a leitura de qrcodes e códigos de barra no dia a dia.',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              'Descubra a facilidade de decodificar QR Codes e Códigos de Barras com o QrScanner, a escolha ideal para quem busca praticidade e eficiência. Com uma interface intuitiva e poderosas funcionalidades, este aplicativo coloca o poder de digitalização na palma da sua mão. Simplifique sua vida cotidiana, seja para verificar informações de produtos ou acessar conteúdos online rapidamente.',
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
             ElevatedButton(
               onPressed: () {
