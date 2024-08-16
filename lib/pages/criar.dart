@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
+import 'package:leitor_qrcode/historico_list.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_contato.dart';
+import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_email.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_site.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_texto.dart';
 import 'package:leitor_qrcode/styles/buttons.dart';
@@ -30,7 +32,7 @@ class _CriarState extends State<Criar> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: ListView(
           children: [
             ElevatedButton(
               style: Botoes.botaoMenus,
@@ -55,7 +57,9 @@ class _CriarState extends State<Criar> {
                 }
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const QrCodeSite(),
+                    builder: (context) => QrCodeSite(
+                      codigosEscaneados: codigosEscaneados,
+                    ),
                   ),
                 );
               },
@@ -169,7 +173,9 @@ class _CriarState extends State<Criar> {
                 }
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const QrCodeTexto(),
+                    builder: (context) => QrCodeTexto(
+                      codigosEscaneados: codigosEscaneados,
+                    ),
                   ),
                 );
               },
@@ -198,6 +204,12 @@ class _CriarState extends State<Criar> {
                 if (vibracaoOn) {
                   Vibration.vibrate(duration: 50);
                 }
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        QrCodeEmail(codigosEscaneados: codigosEscaneados),
+                  ),
+                );
               },
             ),
           ],

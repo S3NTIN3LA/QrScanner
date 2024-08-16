@@ -7,15 +7,15 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
 
-class QrCodeSite extends StatefulWidget {
+class QrCodeEmail extends StatefulWidget {
   final List<String> codigosEscaneados;
-  const QrCodeSite({super.key, required this.codigosEscaneados});
+  const QrCodeEmail({super.key, required this.codigosEscaneados});
 
   @override
-  State<QrCodeSite> createState() => _QrCodeSiteState();
+  State<QrCodeEmail> createState() => _QrCodeEmailState();
 }
 
-class _QrCodeSiteState extends State<QrCodeSite> {
+class _QrCodeEmailState extends State<QrCodeEmail> {
   final TextEditingController _controller = TextEditingController();
   String conteudoDigitado = '';
 
@@ -41,7 +41,7 @@ class _QrCodeSiteState extends State<QrCodeSite> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Site',
+            'Texto',
           ),
         ),
         body: Column(
@@ -70,7 +70,7 @@ class _QrCodeSiteState extends State<QrCodeSite> {
                       TextField(
                         controller: _controller,
                         decoration: const InputDecoration(
-                          hintText: 'Coloque o endereço do site aqui',
+                          hintText: 'Coloque o texto desejado aqui',
                           hintStyle: TextStyle(
                               fontWeight: FontWeight.normal,
                               color: Colors.grey),
