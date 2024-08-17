@@ -45,15 +45,15 @@ class _BottomBarState extends State<BottomBar> {
           ),
           BottomNavigationBarItem(
             backgroundColor: null,
-            icon: Icon(Icons.history),
-            label: 'Histórico',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: null,
             icon: Icon(
               Icons.add_box_outlined,
             ),
             label: 'Criar',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: null,
+            icon: Icon(Icons.history),
+            label: 'Histórico',
           ),
           BottomNavigationBarItem(
               backgroundColor: null,
@@ -72,10 +72,10 @@ class _BottomBarState extends State<BottomBar> {
           LeitorImagens(
             codigosEscaneados: codigosEscaneados,
           ),
+          const Criar(),
           Historico(
             codigosEscaneados: codigosEscaneados,
           ),
-          const Criar(),
           const Configuracoes(),
         ],
       ),

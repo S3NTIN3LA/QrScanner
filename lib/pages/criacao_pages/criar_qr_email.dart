@@ -70,7 +70,7 @@ class _QrCodeEmailState extends State<QrCodeEmail> {
                       TextField(
                         controller: _controller,
                         decoration: const InputDecoration(
-                          hintText: 'Coloque o texto desejado aqui',
+                          hintText: 'Coloque o e-mail desejado aqui',
                           hintStyle: TextStyle(
                               fontWeight: FontWeight.normal,
                               color: Colors.grey),
@@ -86,6 +86,7 @@ class _QrCodeEmailState extends State<QrCodeEmail> {
                           setState(() {
                             conteudoDigitado = _controller.text;
                             quandoForEscaneado(conteudoDigitado);
+                            _controller.text = '';
                           });
                         },
                         child: Row(

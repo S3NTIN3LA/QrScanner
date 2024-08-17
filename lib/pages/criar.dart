@@ -90,7 +90,9 @@ class _CriarState extends State<Criar> {
                 }
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const QrCodeContato(),
+                    builder: (context) => QrCodeContato(
+                      codigosEscaneados: codigosEscaneados,
+                    ),
                   ),
                 );
               },
