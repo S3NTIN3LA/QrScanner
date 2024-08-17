@@ -41,77 +41,70 @@ class _QrCodeEmailState extends State<QrCodeEmail> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Texto',
+            'E-mail',
           ),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
+              children: [
+                if (conteudoDigitado != '')
+                  Align(
+                    alignment: Alignment.center,
+                    child: QrImageView(
+                      backgroundColor: MinhasCores.primaria,
+                      errorCorrectionLevel: QrErrorCorrectLevel.H,
+                      gapless: true,
+                      version: 6,
+                      size: 250,
+                      data: conteudoDigitado,
+                    ),
+                  ),
+                const SizedBox(
+                  height: 35,
+                ),
+                TextField(
+                  controller: _controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Coloque o e-mail desejado aqui',
+                    hintStyle: TextStyle(
+                        fontWeight: FontWeight.normal, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                ElevatedButton(
+                  style: Botoes.botaoMenus,
+                  onPressed: () {
+                    Vibration.vibrate(duration: 50);
+                    setState(() {
+                      conteudoDigitado = _controller.text;
+                      quandoForEscaneado(conteudoDigitado);
+                      _controller.text = '';
+                    });
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      if (conteudoDigitado != '')
-                        Align(
-                          alignment: Alignment.center,
-                          child: QrImageView(
-                            backgroundColor: MinhasCores.primaria,
-                            errorCorrectionLevel: QrErrorCorrectLevel.H,
-                            gapless: true,
-                            version: 6,
-                            size: 250,
-                            data: conteudoDigitado,
-                          ),
-                        ),
-                      const SizedBox(
-                        height: 35,
-                      ),
-                      TextField(
-                        controller: _controller,
-                        decoration: const InputDecoration(
-                          hintText: 'Coloque o e-mail desejado aqui',
-                          hintStyle: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              color: Colors.grey),
-                        ),
+                      const Icon(
+                        Icons.qr_code_sharp,
+                        color: Colors.white,
                       ),
                       const SizedBox(
-                        height: 15,
+                        width: 15,
                       ),
-                      ElevatedButton(
-                        style: Botoes.botaoMenus,
-                        onPressed: () {
-                          Vibration.vibrate(duration: 50);
-                          setState(() {
-                            conteudoDigitado = _controller.text;
-                            quandoForEscaneado(conteudoDigitado);
-                            _controller.text = '';
-                          });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.qr_code_sharp,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              'Criar',
-                              style: EstilosTexto.textoPaginas,
-                            ),
-                          ],
-                        ),
+                      Text(
+                        'Criar',
+                        style: EstilosTexto.textoPaginas,
                       ),
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
