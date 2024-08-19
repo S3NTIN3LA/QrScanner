@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/historico_list.dart';
 import 'package:leitor_qrcode/styles/buttons.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/text.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
@@ -39,6 +41,7 @@ class _QrCodeContatoState extends State<QrCodeContato> {
 
   @override
   Widget build(BuildContext context) {
+    final vibrationOn = context.watch<VibrationProvider>().vibracaoOn;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -105,16 +108,24 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                 ElevatedButton(
                   style: Botoes.botaoMenus,
                   onPressed: () {
-                    Vibration.vibrate(duration: 50);
-                    setState(() {
-                      conteudoDigitado.add(_controllerNome.text);
-                      conteudoDigitado.add(_controllerTelefone.text);
-                      conteudoDigitado.add(_controllerEmail.text);
-                      quandoForEscaneado(conteudoDigitado.toString());
-                      _controllerNome.text = '';
-                      _controllerTelefone.text = '';
-                      _controllerEmail.text = '';
-                    });
+                    if (vibrationOn) {
+                      Vibration.vibrate(duration: 50);
+                    }
+                    if (_controllerEmail.text != '' ||
+                        _controllerTelefone.text != '') {
+                      if (_controllerEmail.text.contains('@') &&
+                          _controllerTelefone.text.length < 15) {
+                        setState(() {
+                          conteudoDigitado.add(_controllerNome.text);
+                          conteudoDigitado.add(_controllerTelefone.text);
+                          conteudoDigitado.add(_controllerEmail.text);
+                          quandoForEscaneado(conteudoDigitado.toString());
+                          _controllerNome.text = '';
+                          _controllerTelefone.text = '';
+                          _controllerEmail.text = '';
+                        });
+                      }
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

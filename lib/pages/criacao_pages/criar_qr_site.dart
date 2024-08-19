@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/historico_list.dart';
 import 'package:leitor_qrcode/styles/buttons.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/text.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
@@ -36,6 +38,7 @@ class _QrCodeSiteState extends State<QrCodeSite> {
 
   @override
   Widget build(BuildContext context) {
+    final vibrationOn = context.watch<VibrationProvider>().vibracaoOn;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -78,11 +81,17 @@ class _QrCodeSiteState extends State<QrCodeSite> {
                 ElevatedButton(
                   style: Botoes.botaoMenus,
                   onPressed: () {
-                    Vibration.vibrate(duration: 50);
-                    setState(() {
-                      conteudoDigitado = _controller.text;
-                      quandoForEscaneado(conteudoDigitado);
-                    });
+                    if (vibrationOn) {
+                      Vibration.vibrate(duration: 50);
+                    }
+                    if (_controller.text != '' &&
+                        _controller.text.contains('.com')) {
+                      setState(() {
+                        conteudoDigitado = _controller.text;
+                        quandoForEscaneado(conteudoDigitado);
+                        _controller.text = '';
+                      });
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

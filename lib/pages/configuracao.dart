@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leitor_qrcode/funcoes/mudar_tema.dart';
 import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
+import 'package:leitor_qrcode/navigation/navegacao_paginas.dart';
 import 'package:leitor_qrcode/pages/introducao/introducao.dart';
 import 'package:leitor_qrcode/styles/colors.dart';
 import 'package:leitor_qrcode/styles/themes.dart';
@@ -134,11 +135,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 if (vibrationOn) {
                   Vibration.vibrate(duration: 50);
                 }
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const Introducao(),
-                  ),
-                );
+                navegar(const Introducao(), context);
               },
             ),
             ListTile(

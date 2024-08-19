@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/historico_list.dart';
+import 'package:leitor_qrcode/navigation/navegacao_paginas.dart';
+import 'package:leitor_qrcode/pages/criacao_pages/cria_qr_localizacao.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_contato.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_email.dart';
 import 'package:leitor_qrcode/pages/criacao_pages/criar_qr_site.dart';
@@ -55,13 +57,8 @@ class _CriarState extends State<Criar> {
                 if (vibracaoOn) {
                   Vibration.vibrate(duration: 50);
                 }
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => QrCodeSite(
-                      codigosEscaneados: codigosEscaneados,
-                    ),
-                  ),
-                );
+                navegar(
+                    QrCodeSite(codigosEscaneados: codigosEscaneados), context);
               },
             ),
             const SizedBox(
@@ -88,13 +85,8 @@ class _CriarState extends State<Criar> {
                 if (vibracaoOn) {
                   Vibration.vibrate(duration: 50);
                 }
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => QrCodeContato(
-                      codigosEscaneados: codigosEscaneados,
-                    ),
-                  ),
-                );
+                navegar(QrCodeContato(codigosEscaneados: codigosEscaneados),
+                    context);
               },
             ),
             const SizedBox(
@@ -147,6 +139,7 @@ class _CriarState extends State<Criar> {
                 if (vibracaoOn) {
                   Vibration.vibrate(duration: 50);
                 }
+                navegar(const QrCodeLocalizacao(), context);
               },
             ),
             const SizedBox(
@@ -173,13 +166,8 @@ class _CriarState extends State<Criar> {
                 if (vibracaoOn) {
                   Vibration.vibrate(duration: 50);
                 }
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => QrCodeTexto(
-                      codigosEscaneados: codigosEscaneados,
-                    ),
-                  ),
-                );
+                navegar(
+                    QrCodeTexto(codigosEscaneados: codigosEscaneados), context);
               },
             ),
             const SizedBox(
@@ -206,12 +194,8 @@ class _CriarState extends State<Criar> {
                 if (vibracaoOn) {
                   Vibration.vibrate(duration: 50);
                 }
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        QrCodeEmail(codigosEscaneados: codigosEscaneados),
-                  ),
-                );
+                navegar(
+                    QrCodeEmail(codigosEscaneados: codigosEscaneados), context);
               },
             ),
           ],
