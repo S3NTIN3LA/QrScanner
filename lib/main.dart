@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:leitor_qrcode/funcoes/mudar_tema.dart';
 import 'package:leitor_qrcode/funcoes/vibration_provider.dart';
 import 'package:leitor_qrcode/navigation/bottom_navigation.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterConfig.loadEnvVariables();
   final temaProvider = ThemeProvider(temaClaro);
   await temaProvider.carregarTema();
   runApp(

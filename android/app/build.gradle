@@ -27,6 +27,8 @@ def keystoreProperties = new Properties()
       keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
   }
 
+  apply from: project(':flutter_config').projectDir.getPath() + '/dotenv.gradle'
+
 android {
     namespace "com.example.leitor_qrcode"
     compileSdk flutter.compileSdkVersion

@@ -139,7 +139,11 @@ class _CriarState extends State<Criar> {
                 if (vibracaoOn) {
                   Vibration.vibrate(duration: 50);
                 }
-                navegar(const QrCodeLocalizacao(), context);
+                navegar(
+                    QrCodeLocalizacao(
+                      codigosEscaneados: codigosEscaneados,
+                    ),
+                    context);
               },
             ),
             const SizedBox(

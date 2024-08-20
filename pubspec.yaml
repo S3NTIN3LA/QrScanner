@@ -29,6 +29,8 @@ dependencies:
   share_plus: ^10.0.2
   qr_flutter: ^4.1.0
   geolocator: ^13.0.1
+  flutter_config: ^2.0.2
+  google_maps_flutter: ^2.9.0
 flutter_native_splash:
   color: '#EEEEEE'
   image: 'assets/splash.jpg'
