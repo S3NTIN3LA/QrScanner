@@ -36,6 +36,45 @@ class _QrCodeSiteState extends State<QrCodeSite> {
     });
   }
 
+  verificarConteudo() {
+    if (_controller.text == '') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Row(
+            children: [
+              Icon(Icons.error_outline_sharp),
+              SizedBox(
+                width: 15,
+              ),
+              Text('Este campo não pode estar vazio!')
+            ],
+          ),
+        ),
+      );
+    } else if (!_controller.text.contains('.')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Row(
+            children: [
+              Icon(Icons.error_outline_sharp),
+              SizedBox(
+                width: 15,
+              ),
+              Text('Endereços de sites normalmente\ncontém "."')
+            ],
+          ),
+        ),
+      );
+    } else {
+      setState(() {
+        conteudoDigitado = _controller.text;
+        _controller.text = '';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final vibrationOn = context.watch<VibrationProvider>().vibracaoOn;
@@ -59,10 +98,17 @@ class _QrCodeSiteState extends State<QrCodeSite> {
                       backgroundColor: MinhasCores.primaria,
                       errorCorrectionLevel: QrErrorCorrectLevel.H,
                       gapless: true,
-                      version: 6,
+                      version: 20,
                       size: 250,
                       data: conteudoDigitado,
                     ),
+                  ),
+                const SizedBox(
+                  height: 35,
+                ),
+                if (conteudoDigitado != '')
+                  SelectableText(
+                    conteudoDigitado,
                   ),
                 const SizedBox(
                   height: 35,
@@ -84,14 +130,12 @@ class _QrCodeSiteState extends State<QrCodeSite> {
                     if (vibrationOn) {
                       Vibration.vibrate(duration: 50);
                     }
-                    if (_controller.text != '' &&
-                        _controller.text.contains('.com')) {
-                      setState(() {
-                        conteudoDigitado = _controller.text;
+                    verificarConteudo();
+                    setState(() {
+                      if (conteudoDigitado.isNotEmpty) {
                         quandoForEscaneado(conteudoDigitado);
-                        _controller.text = '';
-                      });
-                    }
+                      }
+                    });
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

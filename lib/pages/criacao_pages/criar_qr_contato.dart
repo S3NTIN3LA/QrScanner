@@ -39,6 +39,137 @@ class _QrCodeContatoState extends State<QrCodeContato> {
     });
   }
 
+  verificarConteudo() {
+    bool telefonePreenchido = _controllerTelefone.text.isNotEmpty;
+    bool telefoneValido =
+        telefonePreenchido && _controllerTelefone.text.length <= 15;
+    bool emailPreenchido = _controllerEmail.text.isNotEmpty;
+    bool emailValido = emailPreenchido && _controllerEmail.text.contains("@");
+    bool nomePreenchido = _controllerNome.text.isNotEmpty;
+
+    if (nomePreenchido && telefoneValido && emailValido) {
+      setState(() {
+        conteudoDigitado.add('Nome: ${_controllerNome.text}');
+        conteudoDigitado.add('Telefone: ${_controllerTelefone.text}');
+        conteudoDigitado.add('E-mail: ${_controllerEmail.text}');
+        _controllerTelefone.text = '';
+        _controllerEmail.text = '';
+        _controllerNome.text = '';
+      });
+    } else if (!nomePreenchido && telefoneValido && emailValido) {
+      setState(() {
+        conteudoDigitado.add('Telefone: ${_controllerTelefone.text}');
+        conteudoDigitado.add('E-mail: ${_controllerEmail.text}');
+        _controllerTelefone.text = '';
+        _controllerEmail.text = '';
+        _controllerNome.text = '';
+      });
+    } else if (nomePreenchido && telefoneValido) {
+      setState(() {
+        conteudoDigitado.add('Nome: ${_controllerNome.text}');
+        conteudoDigitado.add('Telefone: ${_controllerTelefone.text}');
+        _controllerTelefone.text = '';
+        _controllerEmail.text = '';
+        _controllerNome.text = '';
+      });
+    } else if (nomePreenchido && emailValido) {
+      setState(() {
+        conteudoDigitado.add('Nome: ${_controllerNome.text}');
+        conteudoDigitado.add('E-mail: ${_controllerEmail.text}');
+        _controllerTelefone.text = '';
+        _controllerEmail.text = '';
+        _controllerNome.text = '';
+      });
+    }
+
+    if (!telefonePreenchido && !emailPreenchido) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+          content: Row(
+            children: [
+              Icon(Icons.error_outline_sharp),
+              SizedBox(
+                width: 15,
+              ),
+              Text('Telefone ou e-mail devem ser preenchidos!')
+            ],
+          ),
+        ),
+      );
+    } else {
+      if (telefonePreenchido && !telefoneValido) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.red,
+            content: Row(
+              children: [
+                Icon(Icons.error_outline_sharp),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                    'O número de telefone inserido contém\ndígitos demais para ser verdadeiro!'),
+              ],
+            ),
+          ),
+        );
+        setState(() {
+          _controllerTelefone.text = '';
+          _controllerEmail.text = '';
+          _controllerNome.text = '';
+        });
+      } /*else if (telefoneValido && emailValido) {
+        setState(() {
+          conteudoDigitado.add('Telefone: ${_controllerTelefone.text}');
+          conteudoDigitado.add('E-mail: ${_controllerEmail.text}');
+          _controllerTelefone.text = '';
+          _controllerEmail.text = '';
+          _controllerNome.text = '';
+        });
+      }
+      else if (telefoneValido && !emailPreenchido) {
+        setState(() {
+          conteudoDigitado.add('Telefone: ${_controllerTelefone.text}');
+          _controllerTelefone.text = '';
+          _controllerEmail.text = '';
+          _controllerNome.text = '';
+        });
+      }*/
+    }
+    if (emailPreenchido && !emailValido) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+          content: Row(
+            children: [
+              Icon(Icons.error_outline_sharp),
+              SizedBox(
+                width: 15,
+              ),
+              Text('Um e-mail deve ter um "@".')
+            ],
+          ),
+        ),
+      );
+      setState(() {
+        _controllerTelefone.text = '';
+        _controllerEmail.text = '';
+        _controllerNome.text = '';
+      });
+    } /* else if (emailValido && (telefoneValido || !telefonePreenchido)) {
+      setState(() {
+        conteudoDigitado.add('E-mail: ${_controllerEmail.text}');
+        _controllerTelefone.text = '';
+        _controllerEmail.text = '';
+        _controllerNome.text = '';
+      });
+    }*/
+  }
+
   @override
   Widget build(BuildContext context) {
     final vibrationOn = context.watch<VibrationProvider>().vibracaoOn;
@@ -62,13 +193,24 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                       backgroundColor: MinhasCores.primaria,
                       errorCorrectionLevel: QrErrorCorrectLevel.H,
                       gapless: true,
-                      version: 8,
+                      version: 11,
                       size: 250,
                       data: conteudoDigitado.toString(),
                     ),
                   ),
                 const SizedBox(
-                  height: 35,
+                  height: 17,
+                ),
+                SizedBox(
+                  height: 60,
+                  child: ListView.builder(
+                      itemCount: conteudoDigitado.length,
+                      itemBuilder: (context, index) {
+                        return Text(conteudoDigitado[index]);
+                      }),
+                ),
+                const SizedBox(
+                  height: 17,
                 ),
                 TextField(
                   controller: _controllerNome,
@@ -111,21 +253,13 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                     if (vibrationOn) {
                       Vibration.vibrate(duration: 50);
                     }
-                    if (_controllerEmail.text != '' ||
-                        _controllerTelefone.text != '') {
-                      if (_controllerEmail.text.contains('@') &&
-                          _controllerTelefone.text.length < 15) {
-                        setState(() {
-                          conteudoDigitado.add(_controllerNome.text);
-                          conteudoDigitado.add(_controllerTelefone.text);
-                          conteudoDigitado.add(_controllerEmail.text);
-                          quandoForEscaneado(conteudoDigitado.toString());
-                          _controllerNome.text = '';
-                          _controllerTelefone.text = '';
-                          _controllerEmail.text = '';
-                        });
+                    conteudoDigitado.clear();
+                    verificarConteudo();
+                    setState(() {
+                      if (conteudoDigitado.isNotEmpty) {
+                        quandoForEscaneado(conteudoDigitado.toString());
                       }
-                    }
+                    });
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

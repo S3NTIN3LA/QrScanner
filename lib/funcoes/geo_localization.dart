@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GeoLocalization extends ChangeNotifier {
   double lat = 0.0;
   double long = 0.0;
   String erro = '';
+  late GoogleMapController _mapsController;
 
-  GeoLocalization() {
+  get mapsController => _mapsController;
+
+  onMapCreated(GoogleMapController gmcontroller) async {
+    _mapsController = gmcontroller;
     getPosicao();
   }
 
@@ -15,6 +20,7 @@ class GeoLocalization extends ChangeNotifier {
       Position posicao = await _posicaoAtual();
       lat = posicao.latitude;
       long = posicao.longitude;
+      _mapsController.animateCamera(CameraUpdate.newLatLng(LatLng(lat, long)));
     } catch (e) {
       erro = e.toString();
     }

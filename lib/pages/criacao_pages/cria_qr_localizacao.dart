@@ -68,13 +68,13 @@ class _QrCodeLocalizacaoState extends State<QrCodeLocalizacao> {
                     ),
                   ),
                 const SizedBox(
-                  height: 35,
+                  height: 25,
                 ),
                 Center(
                   child: SelectableText(conteudoAGerar),
                 ),
                 const SizedBox(
-                  height: 35,
+                  height: 25,
                 ),
                 SizedBox(
                   height: 200,
@@ -82,12 +82,13 @@ class _QrCodeLocalizacaoState extends State<QrCodeLocalizacao> {
                     zoomControlsEnabled: true,
                     rotateGesturesEnabled: true,
                     scrollGesturesEnabled: true,
-                    //tiltGesturesEnabled: true,
                     myLocationEnabled: true,
+                    myLocationButtonEnabled: true,
                     initialCameraPosition: CameraPosition(
                       zoom: 18,
                       target: LatLng(local.lat, local.long),
                     ),
+                    onMapCreated: local.onMapCreated,
                   ),
                 ),
                 const SizedBox(

@@ -36,6 +36,32 @@ class _QrCodeTextoState extends State<QrCodeTexto> {
     });
   }
 
+  verificarConteudo() {
+    if (_controller.text == '') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+          content: Row(
+            children: [
+              Icon(Icons.error_outline_sharp),
+              SizedBox(
+                width: 15,
+              ),
+              Text('Este campo não pode estar vazio!')
+            ],
+          ),
+        ),
+      );
+    } else {
+      setState(() {
+        conteudoDigitado = _controller.text;
+        quandoForEscaneado(conteudoDigitado);
+        _controller.text = '';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final vibrationOn = context.watch<VibrationProvider>().vibracaoOn;
@@ -59,7 +85,7 @@ class _QrCodeTextoState extends State<QrCodeTexto> {
                       backgroundColor: MinhasCores.primaria,
                       errorCorrectionLevel: QrErrorCorrectLevel.H,
                       gapless: true,
-                      version: 6,
+                      version: 20,
                       size: 250,
                       data: conteudoDigitado,
                     ),
@@ -84,13 +110,7 @@ class _QrCodeTextoState extends State<QrCodeTexto> {
                     if (vibrationOn) {
                       Vibration.vibrate(duration: 50);
                     }
-                    if (_controller.text != '') {
-                      setState(() {
-                        conteudoDigitado = _controller.text;
-                        quandoForEscaneado(conteudoDigitado);
-                        _controller.text = '';
-                      });
-                    }
+                    verificarConteudo();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
