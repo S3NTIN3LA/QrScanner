@@ -112,13 +112,14 @@ class _QrCodeEmailState extends State<QrCodeEmail> {
                   height: 35,
                 ),
                 if (conteudoDigitado != '')
-                  Text(
+                  SelectableText(
                     'E-mail: $conteudoDigitado',
                   ),
                 const SizedBox(
                   height: 35,
                 ),
                 TextField(
+                  keyboardType: TextInputType.emailAddress,
                   controller: _controller,
                   decoration: const InputDecoration(
                     hintText: 'Coloque o e-mail desejado aqui',

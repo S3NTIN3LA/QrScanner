@@ -135,23 +135,7 @@ class _QrCodeContatoState extends State<QrCodeContato> {
           _controllerEmail.text = '';
           _controllerNome.text = '';
         });
-      } /*else if (telefoneValido && emailValido) {
-        setState(() {
-          conteudoDigitado.add('Telefone: ${_controllerTelefone.text}');
-          conteudoDigitado.add('E-mail: ${_controllerEmail.text}');
-          _controllerTelefone.text = '';
-          _controllerEmail.text = '';
-          _controllerNome.text = '';
-        });
       }
-      else if (telefoneValido && !emailPreenchido) {
-        setState(() {
-          conteudoDigitado.add('Telefone: ${_controllerTelefone.text}');
-          _controllerTelefone.text = '';
-          _controllerEmail.text = '';
-          _controllerNome.text = '';
-        });
-      }*/
     }
     if (emailPreenchido && !emailValido) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -174,14 +158,7 @@ class _QrCodeContatoState extends State<QrCodeContato> {
         _controllerEmail.text = '';
         _controllerNome.text = '';
       });
-    } /* else if (emailValido && (telefoneValido || !telefonePreenchido)) {
-      setState(() {
-        conteudoDigitado.add('E-mail: ${_controllerEmail.text}');
-        _controllerTelefone.text = '';
-        _controllerEmail.text = '';
-        _controllerNome.text = '';
-      });
-    }*/
+    }
   }
 
   @override
@@ -220,7 +197,7 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                   child: ListView.builder(
                       itemCount: conteudoDigitado.length,
                       itemBuilder: (context, index) {
-                        return Text(conteudoDigitado[index]);
+                        return SelectableText(conteudoDigitado[index]);
                       }),
                 ),
                 const SizedBox(
@@ -251,6 +228,7 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                   height: 20,
                 ),
                 TextField(
+                  keyboardType: TextInputType.emailAddress,
                   controller: _controllerEmail,
                   decoration: const InputDecoration(
                     hintText: 'E-mail',
@@ -271,7 +249,8 @@ class _QrCodeContatoState extends State<QrCodeContato> {
                     verificarConteudo();
                     setState(() {
                       if (conteudoDigitado.isNotEmpty) {
-                        quandoForEscaneado(conteudoDigitado.toString());
+                        quandoForEscaneado(
+                            conteudoDigitado.join(' | ').toString());
                       }
                     });
                   },
