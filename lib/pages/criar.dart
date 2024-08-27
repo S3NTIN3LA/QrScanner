@@ -41,34 +41,6 @@ class _CriarState extends State<Criar> {
               child: Row(
                 children: [
                   const Icon(
-                    Icons.language_outlined,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    'Site',
-                    style: EstilosTexto.textoPaginas,
-                  ),
-                ],
-              ),
-              onPressed: () {
-                if (vibracaoOn) {
-                  Vibration.vibrate(duration: 50);
-                }
-                navegar(
-                    QrCodeSite(codigosEscaneados: codigosEscaneados), context);
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              style: Botoes.botaoMenus,
-              child: Row(
-                children: [
-                  const Icon(
                     Icons.perm_contact_cal_rounded,
                     color: Colors.white,
                   ),
@@ -92,6 +64,35 @@ class _CriarState extends State<Criar> {
             const SizedBox(
               height: 10,
             ),
+            ElevatedButton(
+              style: Botoes.botaoMenus,
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.email_outlined,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    'E-mail',
+                    style: EstilosTexto.textoPaginas,
+                  ),
+                ],
+              ),
+              onPressed: () {
+                if (vibracaoOn) {
+                  Vibration.vibrate(duration: 50);
+                }
+                navegar(
+                    QrCodeEmail(codigosEscaneados: codigosEscaneados), context);
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+
             /*ElevatedButton(
               style: Botoes.botaoMenus,
               child: Row(
@@ -154,6 +155,34 @@ class _CriarState extends State<Criar> {
               child: Row(
                 children: [
                   const Icon(
+                    Icons.language_outlined,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    'Site',
+                    style: EstilosTexto.textoPaginas,
+                  ),
+                ],
+              ),
+              onPressed: () {
+                if (vibracaoOn) {
+                  Vibration.vibrate(duration: 50);
+                }
+                navegar(
+                    QrCodeSite(codigosEscaneados: codigosEscaneados), context);
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              style: Botoes.botaoMenus,
+              child: Row(
+                children: [
+                  const Icon(
                     Icons.text_snippet_outlined,
                     color: Colors.white,
                   ),
@@ -176,31 +205,6 @@ class _CriarState extends State<Criar> {
             ),
             const SizedBox(
               height: 10,
-            ),
-            ElevatedButton(
-              style: Botoes.botaoMenus,
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.email_outlined,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    'E-mail',
-                    style: EstilosTexto.textoPaginas,
-                  ),
-                ],
-              ),
-              onPressed: () {
-                if (vibracaoOn) {
-                  Vibration.vibrate(duration: 50);
-                }
-                navegar(
-                    QrCodeEmail(codigosEscaneados: codigosEscaneados), context);
-              },
             ),
           ],
         ),

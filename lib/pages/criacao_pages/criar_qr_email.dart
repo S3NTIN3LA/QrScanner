@@ -53,6 +53,9 @@ class _QrCodeEmailState extends State<QrCodeEmail> {
           ),
         ),
       );
+      setState(() {
+        conteudoDigitado = '';
+      });
     } else if (!_controller.text.contains("@")) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -72,7 +75,6 @@ class _QrCodeEmailState extends State<QrCodeEmail> {
     } else {
       setState(() {
         conteudoDigitado = _controller.text;
-        quandoForEscaneado(conteudoDigitado);
         _controller.text = '';
       });
     }
@@ -134,6 +136,9 @@ class _QrCodeEmailState extends State<QrCodeEmail> {
                       Vibration.vibrate(duration: 50);
                     }
                     verificarConteudo();
+                    if (conteudoDigitado != '') {
+                      quandoForEscaneado(conteudoDigitado);
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -52,6 +52,9 @@ class _QrCodeSiteState extends State<QrCodeSite> {
           ),
         ),
       );
+      setState(() {
+        conteudoDigitado = '';
+      });
     } else if (!_controller.text.contains('.')) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

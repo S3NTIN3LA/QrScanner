@@ -53,10 +53,15 @@ class _QrCodeTextoState extends State<QrCodeTexto> {
           ),
         ),
       );
+      setState(() {
+        conteudoDigitado = '';
+      });
     } else {
       setState(() {
         conteudoDigitado = _controller.text;
-        quandoForEscaneado(conteudoDigitado);
+        if (conteudoDigitado != '') {
+          quandoForEscaneado(conteudoDigitado);
+        }
         _controller.text = '';
       });
     }
@@ -83,7 +88,7 @@ class _QrCodeTextoState extends State<QrCodeTexto> {
                     alignment: Alignment.center,
                     child: QrImageView(
                       backgroundColor: MinhasCores.primaria,
-                      errorCorrectionLevel: QrErrorCorrectLevel.H,
+                      errorCorrectionLevel: QrErrorCorrectLevel.L,
                       gapless: true,
                       version: 20,
                       size: 250,

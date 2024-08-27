@@ -80,6 +80,20 @@ class _QrCodeContatoState extends State<QrCodeContato> {
         _controllerEmail.text = '';
         _controllerNome.text = '';
       });
+    } else if (!nomePreenchido && telefoneValido) {
+      setState(() {
+        conteudoDigitado.add('Telefone: ${_controllerTelefone.text}');
+        _controllerTelefone.text = '';
+        _controllerEmail.text = '';
+        _controllerNome.text = '';
+      });
+    } else if (!nomePreenchido && emailValido) {
+      setState(() {
+        conteudoDigitado.add('E-mail: ${_controllerEmail.text}');
+        _controllerTelefone.text = '';
+        _controllerEmail.text = '';
+        _controllerNome.text = '';
+      });
     }
 
     if (!telefonePreenchido && !emailPreenchido) {
