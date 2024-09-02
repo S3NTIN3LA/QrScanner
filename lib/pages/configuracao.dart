@@ -160,7 +160,7 @@ class _ConfiguracoesState extends State<Configuracoes> {
                 'Versão',
               ),
               subtitle: Text(
-                '1.1.1',
+                '1.1.2',
               ),
             ),
           ],
